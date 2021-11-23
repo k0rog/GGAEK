@@ -3,15 +3,16 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-	<title>ГГАЭК</title>
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+	{% block title %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/iconsfont.css' %}">
 	<link rel="stylesheet" href="{% static 'css/normalizer.css' %}">
-	<link rel="stylesheet" href="{% static 'css/news.css' %}">
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block style %}
+    {% endblock %}
 </head>
 <body>
 		<!-- header start -->
@@ -26,56 +27,57 @@
 				<li>
 					<a href="#">Колледж</a>
 					<ul class="header__submenu">
-					<a href=""><li>История</li></a>
-					<a href=""><li>Виртуальный музей</li></a>
-					<a href=""><li>Музей "Колледж помнит"</li></a>
-					<a href=""><li>Фотоальбом</li></a>
-					<a href=""><li>Телефон горячей линии</li></a>
+					<li><a href="">История</a></li>
+					<li><a href="">Виртуальный музей</a></li>
+					<li><a href="">Музей "Колледж помнит"</a></li>
+					<li><a href="">Фотоальбом</a></li>
+					<li><a href="">Телефон горячей линии</a></li>
 
 					</ul>
 				</li>
 				<li>
 					<a href="#">Студентам</a>
 					<ul class="header__submenu">
-					<a href=""><li>Заказ на подготовку кадров</li></a>
-					<a href=""><li>Из уст молодых специалистов</li></a>
-					<a href=""><li>График образовательного процесса</li></a>
-					<a href=""><li>Общежитие</li></a>
-					<a href=""><li>Спортивный отдел</li></a>
-					<a href=""><li>Расписание</li></a>
+					<li><a href="">Заказ на подготовку кадров</a></li>
+					<li><a href="">Из уст молодых специалистов</a></li>
+					<li><a href="">График образовательного процесса</a></li>
+					<li><a href="">Общежитие</a></li>
+					<li><a href="">Спортивный отдел</a></li>
+					<li><a href="">Расписание</a></li>
 					</ul>
 				</li>
 				<li>
 					<a href="#">Aбитуриентам</a>
 					<ul class="header__submenu">
-					<a href=""><li>Приемная комиссия</li></a>
-					<a href=""><li>Документы для поступления</li></a>
-					<a href=""><li>Специальность колледжа</li></a>
-					<a href=""><li>Почему нужно выбрать нас</li></a>
+					<li><a href="">Приемная комиссия</a></li>
+					<li><a href="">Документы для поступления</a></li>
+					<li><a href="">Специальность колледжа</a></li>
+					<li><a href="">Почему нужно выбрать нас</a></li>
 					</ul>
 				</li>
 				<li>
 					<a href="#">Одно окно</a>
 						<ul class="header__submenu">
-					<a href=""><li>Администрация</li></a>
-					<a href=""><li>Административные процедуры</li></a>
-					<a href=""><li>Электронное обращение</li></a></ul>
+					<li><a href="">Администрация</a></li>
+					<li><a href="">Административные процедуры</a></li>
+					<li><a href="">Электронное обращение</a></li>
+                        </ul>
 				</li>
 				<li><a href="{% url 'news' %}">Новости</a></li>
 				<li>
 					<a href="#">Контакты</a>
 						<ul class="header__submenu">
-					<a href=""><li>Мы на карте</li></a>
-					<a href=""><li>Телефонный справочник</li></a>
-					<a href=""><li>Электронное обращение</li></a>
+					<li><a href="">Мы на карте</a></li>
+					<li><a href="">Телефонный справочник</a></li>
+					<li><a href="">Электронное обращение</a></li>
 
 					</ul>
 				</li>
 				<li>
 					<a href="#">Сотрудникам</a>
 							<ul class="header__submenu">
-					<a href=""><li>Коорпоративнй портал</li></a>
-					<a href=""><li>Нормативные документы</li></a>
+					<li><a href="">Коорпоративнй портал</a></li>
+					<li><a href="">Нормативные документы</a></li>
 				    </ul>
 				</li>
 

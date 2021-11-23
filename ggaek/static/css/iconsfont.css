@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-like:before {
+  content: "\e906";
+}
 .icon-instagram:before {
   content: "\e902";
 }

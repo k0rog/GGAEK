@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/iconsfont.css' %}">
+    <link rel="stylesheet" href="{% static 'css/news.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -28,7 +28,7 @@
 					    <h3 class="news__card-title">{{ post.title }}</h3>
 					    <p>{{ post.text }}</p>
 					    <footer class="news__footer">
-					      <div class=" news__footer-block "><span class="news__views icon-1"></span>2,907</div>
+					      <div class=" news__footer-block "><span class="news__views icon-1"></span>{{ post.views.count }}</div>
 					 	  <div class="news__footer-block"><span class="news__like icon-like"></span>{{ post.likes.count }}</div>
 					 	   <div class="news__footer-block"><span class="news__dislike icon-like"></span>{{ post.dislikes.count }}</div>
 					    </footer>

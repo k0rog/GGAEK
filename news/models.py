@@ -19,11 +19,12 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
-    date = models.DateTimeField()
+    date = models.DateField()
     image = models.ImageField(upload_to=get_image_path)
     likes = models.ManyToManyField(CustomUser, related_name='liked_posts')
     dislikes = models.ManyToManyField(CustomUser, related_name='disliked_posts')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    views = models.ManyToManyField(CustomUser, related_name='viewed_posts')
 
     def __str__(self):
         return self.title
