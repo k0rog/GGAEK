@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+{% endblock %}
+
+
+{% block title %}
+    <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+<main class="post">
+    <div class="wrap">
+        <div class="post__wrapper">
+            <div class="post__info">
+                <h1 class="post__title">{{ post.title }}</h1>
+                <span class="post__category">{{ post.category }}</span>
+            </div>
+            <div class="post__main">
+                {{ post.text|safe }}
+            </div>
+            <div class="post__feedback">
+                <div class="feedback__wrapper">
+                    <div class="post__footer-block"><span class="post__views icon-1"></span>{{ post.views.count }}</div>
+                    <div class="post__footer-block"><span class="post__like icon-like"></span>{{ post.likes.count }}</div>
+                    <div class="post__footer-block"><span class="post__dislike icon-like"></span>{{ post.dislikes.count }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

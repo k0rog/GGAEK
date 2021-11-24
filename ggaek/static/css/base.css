@@ -161,24 +161,24 @@ display: block;
 /*footer styles start*/
 
 .footer-container {
-  min-width: 100vw;
-  min-height: 50px;
-  background-color: #4588B7;
-  padding-top: 20px;
+    min-width: 100%;
+    min-height: 50px;
+    background-color: #4588B7;
+    padding-top: 20px;
 }
 
 
 
 .footer__contacts-icons li {
-  margin-left: 10px;
-  color: white;
-  font-size: 30px;
-  display: inline-block;
-  transition: 0.4s;
-  cursor: pointer;
+    margin-left: 10px;
+    color: white;
+    font-size: 30px;
+    display: inline-block;
+    transition: 0.4s;
+    cursor: pointer;
 
 }
 .footer__contacts-icons li:hover {
-  color: black;
+    color: black;
 }
 /*footer styles end*/

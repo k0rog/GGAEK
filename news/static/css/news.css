@@ -21,11 +21,81 @@
     bottom: -8px;
     left: 0;
 }
+/* Кнопка выпадающего списка */
+.dropbtn {
+    background-color: #4588B7;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    font-weight: lighter;
 
+}
+
+/* Кнопка выпадающего меню при наведении и фокусировке */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+/* Контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-top: auto;
+}
+
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+/* Ссылки внутри выпадающего списка */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Изменение цвета выпадающих ссылок при наведении курсора */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Показать выпадающее меню (используйте JS, чтобы добавить этот класс .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
+.show {display:block;}
+.news__header {
+  display: flex;
+  justify-content: space-between;
+}
+.news__form-search_menu {
+  width: 200px;
+  background-color: white;
+  margin-top: 40px;
+  color: black;
+  border: 0;
+  position: relative;
+  text-align: left;
+}
+.news__names {
+  position: absolute;
+  padding: 5px;
+  width: 190px;
+  background-color: white;
+}
+.news__name-link {
+  margin-top: 10px;
+  z-index: 10000;
+}
+.news__name-link:hover {
+  border-right: 3px solid #4588B7;
+}
 .container {
- 
-
-  min-height: 100%;
+   min-height: 100%;
    max-width: 100%;
   margin-top: 80px;
    border-top: 1px solid #c3bdb7;
@@ -35,12 +105,15 @@
   margin-top: 40px;
    box-sizing: border-box;
   display: grid;
- 
+
   align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 40px 40px;
   padding-bottom:  40px;
 }
+
+
+
 .news__card {
       position: relative;
 }
@@ -110,7 +183,7 @@ display: inline-block;
 .news__footer-block span {
   margin-right: 10px;
 }
-.news__card a 
+.news__card a
 {
 
     position: absolute;
@@ -123,8 +196,12 @@ display: inline-block;
 /*.news__card:hover .news__image{
     transform: scale(1.05);
 
- 
+
 }*/
+.news__card-category {
+  margin-bottom: 10px;
+  display: block;
+}
 .news__card:hover .news__image-block::after{
     display: block;
   content: '';
@@ -167,11 +244,18 @@ display: inline-block;
 }
 
 .news__nav-block:hover {
-  border: 0;
+  border: 1px solid #4588B7;
   background-color: #4588B7;
 }
 .news__nav-block:hover .news__nav-number {
  color: white;
 }
+.news__card-category {
+    padding: 10px;
+    background-color: #4588B7;
+    display: inline-block;
+    color: white;
+    font-weight: 100;
+    font-size: 1.1em;
+}
 /*news styles end*/
-
