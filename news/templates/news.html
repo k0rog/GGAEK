@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load news_tags %}
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/news.css' %}">
@@ -19,18 +20,17 @@
 		<div class="dropdown">
 		  <button onclick="myFunction()" class="dropbtn">Выпадающий</button>
 		  <div id="myDropdown" class="dropdown-content">
-		    <a href="#">Ссылка 1</a>
-		    <a href="#">Ссылка 2</a>
-		    <a href="#">Ссылка 3</a>
-			  <a href="#">Ссылка 4</a>
-			  <a href="#">Ссылка 5</a>
+              {% for category in categories %}
+                  <button>{{ category.title }}</button>
+              {% endfor %}
 		  </div>
 		</div>
+
 		</div>
-		<div class="news__wrapper">
+		<section class="news__wrapper" id="news__wrapper">
 			<div class="news__cards">
 
-            {% for post in posts %}
+            {% for post in news %}
 
 				<figure class="news__card">
 					  <div class="news__image-block"><img src="{{ post.cover.url }}" class="news__image" alt="news1"> </div>
@@ -52,31 +52,40 @@
 
 			</div>
 			<ul class="news__nav">
+            {% if page_obj.has_previous %}
+                <li class="news__nav-block">
+                    <button class="news__nav-number"><<</button>
+                </li>
+            {% endif %}
+            {% if page_obj.number != 1 %}
 				<li class="news__nav-block">
-						<a class="news__nav-number"><<</a>
+						<button class="news__nav-number">1</button>
 				</li>
-				<li class="news__nav-block">
-						<a class="news__nav-number">1</a>
-				</li>
-				<li class="news__nav-block">
-						<a class="news__nav-number">2</a>
-				</li>
-				<li class="news__nav-block">
-						<a class="news__nav-number">3</a>
-				</li>
+            {% endif %}
+            {% if  1 < page_obj.number|subtract:1  %}
 				<li class="news__nav-dots" >...</li>
+            {% endif %}
 				<li class="news__nav-block">
-						<a class="news__nav-number">59</a>
+						<button class="news__nav-number">{{ page_obj.number }}</button>
 				</li>
+            {% if  1 < paginator.num_pages|subtract:page_obj.number  %}
+				<li class="news__nav-dots" >...</li>
+            {% endif %}
+            {% if page_obj.number != paginator.num_pages %}
 				<li class="news__nav-block new">
-						<a class="news__nav-number">60</a>
+						<button class="news__nav-number">{{ paginator.num_pages }}</button>
 				</li>
-				<li class="news__nav-block">
-						<a class="news__nav-number">>></a>
-				</li>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <li class="news__nav-block">
+                        <button class="news__nav-number">>></button>
+                </li>
+            {% endif %}
 			</ul>
+		</section>
+
 		</div>
-		</div>
+
 	</div>
 </section>
 <!-- news end -->
@@ -85,4 +94,30 @@
 
 {% block scripts %}
 <script src="{% static 'js/news.js' %}"></script>
+
+    <script>
+    function get_page_data(e) {
+        fetch({% url 'news' %} + `?page=${e.textContent}`)
+            .then(response => {
+                return response.text()
+            })
+            .then(response => {
+                let wrapper = document.querySelector('#news__wrapper')
+
+                let new_section = document.createElement('section')
+                new_section.className = 'news__wrapper'
+                new_section.id = 'news__wrapper'
+                new_section.innerHTML = response.match(/(<section class="news__wrapper" id="news__wrapper">((.|\n|\r)*)<\/section>)/)[0]
+
+                wrapper.replaceWith(new_section)
+                }
+            )
+    }
+
+    let page_buttons = document.querySelectorAll('.news__nav-number')
+    page_buttons.forEach(element => {
+        element.addEventListener('click', () => get_page_data(element))
+    })
+
+    </script>
 {% endblock %}

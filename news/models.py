@@ -4,6 +4,7 @@ from django.conf import settings
 import os
 from users.models import CustomUser
 import re
+import shutil
 
 
 def get_image_path(self, filename):
@@ -30,40 +31,55 @@ class Post(models.Model):
     views = models.ManyToManyField(CustomUser, related_name='viewed_posts')
     slug = models.SlugField(max_length=150)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.previous_title = self.title
+
     def __str__(self):
         return self.title
+
+    def move_image_to_post_folder(self, image_path, convert_jpeg=True):
+        with Image.open(image_path) as image:
+            image = image.resize((800, 800), Image.ANTIALIAS)
+
+            filename = os.path.basename(image_path)
+            if convert_jpeg:
+                new_filename = os.path.splitext(filename)[0] + '.jpeg'
+
+                new_path = get_image_path(self, new_filename)
+
+                image = image.convert('RGB')
+                image.save(settings.MEDIA_ROOT / new_path, 'JPEG', quality=99)
+            else:
+                new_path = get_image_path(self, filename)
+                image.save(settings.MEDIA_ROOT / new_path)
+
+        return new_path
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        images = [self.cover]
-        if self.save_transparency:
-            images += re.findall('<img alt=\"\" src=\"(.*?)\"', self.text)
+        if self.title != self.previous_title:
+            os.mkdir(os.path.join(settings.MEDIA_ROOT, 'news', self.title))
 
-        for i, image_path in enumerate(images):
-            with Image.open(image_path) as image:
-                image = image.resize((800, 800), Image.ANTIALIAS)
+        self.cover = self.move_image_to_post_folder(os.path.join(settings.MEDIA_ROOT, str(self.cover)))
 
-                new_path = get_image_path(self, os.path.split(os.path.splitext(str(image_path))[0] + '.jpeg')[-1])
+        text_images = re.findall('<img alt=\"\" src=\"(.*?)\"', self.text)
+        for image_path in text_images:
+            new_path = self.move_image_to_post_folder(f'{settings.BASE_DIR}{image_path}', self.save_transparency)
 
-                image = image.convert('RGB')
-                image.save(settings.MEDIA_ROOT / new_path, 'JPEG', quality=99)
+            self.text = re.sub(f'{image_path}', f'/media/{new_path}', self.text)
 
-            os.remove(f'{settings.MEDIA_ROOT}/{image_path}')
+        current_images = [str(self.cover)] + [re.sub('/media/', '', image)
+                                              for image
+                                              in re.findall('<img alt=\"\" src=\"(.*?)\"', self.text)]
+        for file in os.listdir(os.path.join(settings.MEDIA_ROOT, 'news', self.title)):
+            file = get_image_path(self, file)
+            if file not in current_images:
+                os.remove(os.path.join(settings.MEDIA_ROOT, file))
+        if os.path.exists(settings.MEDIA_ROOT / 'uploads'):
+            shutil.rmtree(settings.MEDIA_ROOT / 'uploads')
+        if os.path.exists(os.path.join(settings.MEDIA_ROOT, 'news', self.previous_title)):
+            shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'news', self.previous_title))
 
-            self.text = re.sub(f'{image_path}', new_path, self.text)
-
-        super().save()
-
-        # with Image.open(self.cover) as image:
-        #     image = image.resize((800, 800), Image.ANTIALIAS)
-        #
-        #     new_path = os.path.splitext(str(self.cover))[0] + '.jpeg'
-        #
-        #     image = image.convert('RGB')
-        #     image.save(settings.MEDIA_ROOT / new_path, 'JPEG', quality=99)
-        #
-        #     self.cover = new_path
-        #
-        # images = re.findall('<img alt=\"\" src=\"(.*?)\"', self.text)
-
+        super().save(*args, **kwargs)
