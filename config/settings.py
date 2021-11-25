@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'captcha',
     'users',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -36,6 +36,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'config.middlewares.FormPasser'
 ]
 
 ROOT_URLCONF = 'config.urls'
