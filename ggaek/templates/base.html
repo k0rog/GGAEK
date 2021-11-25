@@ -92,6 +92,71 @@
                 <button type="submit" class="header__search-icon icon-search"></button>
 			</form>
 			</div>
+        <div class="header__registration dropdown">
+			<button onclick="myFunction()" class="header__button icon-user dropbtn"></button>
+			<div id="myDropdown" class="header__dropdown-content dropdown-content">
+				<a href="#" class="js-open-modal" data-modal="1">Войти</a>
+				<a href="#" class="js-open-modal" data-modal="2">Регистрация</a>
+			</div>
+		</div>
+
+        <div class="modal" data-modal="1">
+		<!--   Svg иконка для закрытия окна  -->
+		<svg class="modal__cross js-modal-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"></path></svg>
+		<form class="registration__form" action="">
+			<div class="header__registration registration">
+				<h1 class="registration__title">Регистрация</h1>
+				<p class="registration__text" >Заполните поля для того, чтобы создать аккаунт.</p>
+				<hr>
+
+				<label for="email"><b>Электронная почта</b></label>
+                <input class="registration__input" id="email" type="text" placeholder="Введите Email" name="email" required>
+
+                <label for="psw"><b>Пароль</b></label>
+                <input class="registration__input" type="password" placeholder="Введите пароль" name="psw" id="psw" required>
+
+                <hr>
+				<button type="submit" class="registration__button button">Создать аккаунт</button>
+			</div>
+
+			<div class="registration__signing">
+				<p>Нет аккаунта?<a href="#" class="js-modal-close js-open-modal" data-modal="2"> Создать.</a></p>
+			</div>
+		</form>
+	</div>
+
+	<div class="modal" data-modal="2">
+		<!--   Svg иконка для закрытия окна  -->
+		<svg class="modal__cross js-modal-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"></path></svg>
+		<form class="registration__form" action="">
+			<div class="header__registration registration">
+				<h1 class="registration__title">Регистрация</h1>
+				<p class="registration__text" >Заполните поля для того, чтобы создать аккаунт.</p>
+				<hr>
+
+				<label for="email"><b>Электронная почта</b></label>
+                <input class="registration__input" id="email" type="text" placeholder="Введите Email" name="email" required>
+
+                <label for="psw"><b>Пароль</b></label>
+                <input class="registration__input" type="password" placeholder="Введите пароль" name="psw" id="psw" required>
+
+                <label for="psw-repeat"><b>Повторить пароль</b></label>
+                <input class="registration__input" id="psw-repeat" type="password" placeholder="Повторите пароль" name="psw-repeat" required>
+                <hr>
+				<button type="submit" class="registration__button button">Создать аккаунт</button>
+			</div>
+
+			<div class="registration__signing ">
+				<p>Уже есть аккаунт?<a href="#" class="js-modal-close js-open-modal" data-modal="1"> Войти.</a></p>
+			</div>
+		</form>
+	</div>
+
+	<!-- Подложка под модальным окном -->
+	<div class="overlay js-overlay-modal"></div>
+
 	</div>
 	</div>
 </header>
@@ -114,6 +179,7 @@
 	</div>
 </footer>
         <!-- footer end -->
+        <script src="{% static 'js/auth.js' %}"></script>
 
 {% block scripts %}
 {% endblock %}

@@ -1,13 +1,9 @@
-.active-link {
-  margin-bottom: 2px;
-}
-.wrap{
-	max-width: 1170px;
-	margin:0 auto;
-
 /*header styles start*/
-
+.wrap{
+    max-width: 1170px;
+    margin:0 auto;
 }
+
 .button{
     -webkit-appearance: none;
      -moz-appearance: none;
@@ -59,6 +55,9 @@ list-style: none;
 margin: 0;
 padding: 0;
 }
+.header__topmenu {
+    margin-right: 15px;
+}
 .header__topmenu > li {
 display: inline-block;
 font-weight: lighter;
@@ -102,11 +101,6 @@ background: #4588B7;
 
 }
 
-.header__submenu li a {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
 .one ul li:hover .header__submenu {
 display: block;
 }
@@ -150,12 +144,167 @@ display: block;
 .d5 input:focus + .icon-search{
   color: black;
 }
+.header__button {
+    color: white;
+    margin-left: 15px;
+    cursor: pointer;
+    background-color: #4588B7;
 
+    font-size: 20px;
+    border: none;
+
+}
+/* Кнопка выпадающего списка */
+.header__button {
+
+}
+
+/* Кнопка выпадающего меню при наведении и фокусировке */
+.header__button:hover, .dropbtn:focus {
+    color:black;
+}
+
+/* Контейнер <div> - необходим для размещения выпадающего содержимого */
+.dropdown {
+    position: relative;
+}
+
+/* Выпадающее содержимое (скрыто по умолчанию) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+/* Ссылки внутри выпадающего списка */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Изменение цвета выпадающих ссылок при наведении курсора */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Показать выпадающее меню (используйте JS, чтобы добавить этот класс .dropdown-content содержимого, когда пользователь нажимает на кнопку выпадающего списка) */
+.show {display:block;}
 ::placeholder {
   font-weight: lighter;
   font-family: 'Roboto', sans-serif;
  color: white;
 }
+
+/* Стили для подложки */
+
+.overlay {
+
+    /* Скрываем подложку  */
+    opacity: 0;
+    visibility: hidden;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 20;
+    transition: .3s all;
+}
+/* Стили для модальных окон */
+
+.modal {
+
+    /* Скрываем окна  */
+    opacity: 0;
+    visibility: hidden;
+
+
+    /*  Установаем ширину окна  */
+    width: 100%;
+    max-width: 500px;
+
+    /*  Центрируем и задаем z-index */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30; /* Должен быть выше чем у подложки*/
+
+    /*  Побочные стили   */
+    box-shadow: 0 3px 10px -.5px rgba(0, 0, 0, .2);
+    text-align: center;
+    padding: 30px;
+    border-radius: 3px;
+    background-color: #fff;
+    transition: 0.3s all;
+    box-sizing: border-box;
+}
+
+/* Стили для кнопки закрытия */
+
+.modal__cross {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    fill: #444;
+    cursor: pointer;
+}
+.modal.active,
+.overlay.active{
+    opacity: 1;
+    visibility: visible;
+}
+
+.header__registration {
+    padding: 16px;
+}
+
+.registration__title {
+    margin-bottom: 10px;
+}
+.registration__text {
+    margin-bottom: 10px;
+}
+/* Full-width input fields */
+.registration__input{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: 1px solid #4588B7;
+    box-sizing: border-box;
+}
+
+/*.registration__input:focus, input[type=password]:focus {*/
+/*    background-color: #ddd;*/
+/*    outline: none;*/
+/*}*/
+.registration__button {
+    width: 300px;
+}
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+
+
+/* Add a blue text color to links */
+
+
+/* Set a grey background color and center the text of the "sign in" section */
+.registration__signing {
+    text-align: center;
+}
+
 /*header styles end*/
 
 /*footer styles start*/

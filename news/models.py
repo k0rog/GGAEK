@@ -18,6 +18,10 @@ class Category(models.Model):
         return self.title
 
 
+class Ip(models.Model):
+    ip = models.CharField(max_length=150)
+
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     announce = models.CharField(max_length=200)
@@ -28,7 +32,7 @@ class Post(models.Model):
     likes = models.ManyToManyField(CustomUser, related_name='liked_posts')
     dislikes = models.ManyToManyField(CustomUser, related_name='disliked_posts')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    views = models.ManyToManyField(CustomUser, related_name='viewed_posts')
+    views = models.ManyToManyField(Ip, related_name='viewed_posts')
     slug = models.SlugField(max_length=150)
 
     def __init__(self, *args, **kwargs):
@@ -49,7 +53,7 @@ class Post(models.Model):
                 new_path = get_image_path(self, new_filename)
 
                 image = image.convert('RGB')
-                image.save(settings.MEDIA_ROOT / new_path, 'JPEG', quality=99)
+                image.save(settings.MEDIA_ROOT / new_path, 'JPEG', quality=70)
             else:
                 new_path = get_image_path(self, filename)
                 image.save(settings.MEDIA_ROOT / new_path)
@@ -59,7 +63,8 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        if self.title != self.previous_title:
+        if self.title != self.previous_title and \
+                not os.path.exists(os.path.join(settings.MEDIA_ROOT, 'news', self.title)):
             os.mkdir(os.path.join(settings.MEDIA_ROOT, 'news', self.title))
 
         self.cover = self.move_image_to_post_folder(os.path.join(settings.MEDIA_ROOT, str(self.cover)))
@@ -77,9 +82,12 @@ class Post(models.Model):
             file = get_image_path(self, file)
             if file not in current_images:
                 os.remove(os.path.join(settings.MEDIA_ROOT, file))
+
         if os.path.exists(settings.MEDIA_ROOT / 'uploads'):
             shutil.rmtree(settings.MEDIA_ROOT / 'uploads')
-        if os.path.exists(os.path.join(settings.MEDIA_ROOT, 'news', self.previous_title)):
+
+        if self.title != self.previous_title and self.previous_title != '' and \
+                os.path.exists(os.path.join(settings.MEDIA_ROOT, 'news', self.previous_title)):
             shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'news', self.previous_title))
 
         super().save(*args, **kwargs)
