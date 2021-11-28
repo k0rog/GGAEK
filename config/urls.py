@@ -13,5 +13,6 @@ urlpatterns = [
     path('', include('ggaek.urls')),
     path('news/', include('news.urls')),
     path('feedback/', include('feedback.urls')),
+    path('users/', include('users.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

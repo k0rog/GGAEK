@@ -155,9 +155,12 @@
 		</form>
 	</div>
         {% else %}
-
-            authenticated
-
+        <div class="header__registration dropdown">
+			<button onclick="myFunction()" class="header__button icon-user dropbtn"></button>
+			<div id="myDropdown" class="header__dropdown-content dropdown-content">
+                <a href="{% url 'logout' %}">Выйти</a>
+			</div>
+		</div>
         {% endif %}
 	<!-- Подложка под модальным окном -->
 	<div class="overlay js-overlay-modal"></div>
