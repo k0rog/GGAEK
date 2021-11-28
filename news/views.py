@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from .models import Post, Category, Ip
 from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404
-
+from django import http
 
 class NewsListView(ListView):
     context_object_name = 'news'
@@ -49,3 +48,29 @@ class GameDetailView(DetailView):
         post.views.add(ip.id)
 
         return post
+
+
+def add_like(request, post_slug):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return http.HttpResponseNotAllowed('')
+
+        post = Post.objects.filter(slug=post_slug).first()
+        post.likes.add(request.user)
+
+        return http.HttpResponse(post.likes.count())
+
+    return http.Http404('')
+
+
+def add_dislike(request, post_slug):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return http.HttpResponseNotAllowed('')
+
+        post = Post.objects.filter(slug=post_slug).first()
+        post.dislikes.add(request.user)
+
+        return http.HttpResponse(post.dislikes.count())
+
+    return http.Http404('')

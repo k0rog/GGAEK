@@ -24,11 +24,71 @@
             <div class="post__feedback">
                 <div class="feedback__wrapper">
                     <div class="post__footer-block"><span class="post__views icon-1"></span>{{ post.views.count }}</div>
-                    <div class="post__footer-block"><span class="post__like icon-like"></span>{{ post.likes.count }}</div>
-                    <div class="post__footer-block"><span class="post__dislike icon-like"></span>{{ post.dislikes.count }}</div>
+                    <div class="post__footer-block" id="like"><span class="post__like icon-like"></span>{{ post.likes.count }}</div>
+                    <div class="post__footer-block" id="dislike"><span class="post__dislike icon-like"></span>{{ post.dislikes.count }}</div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        let cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+    function addLikeOrDislike(action) {
+            let urlInfo = new URL(location.href)
+            let url = `/news/${urlInfo.pathname.split('/')[2]}/${action}`
+            return fetch(url, {
+                method: 'POST',
+                headers: {
+                  'X-CSRFToken': getCookie('csrftoken'),
+                }
+            })
+                .then(response => response.text())
+                .then(response => {
+                    return response
+                })
+                .catch(response => {
+                    console.log('error')
+                    console.log(response)
+            })
+        }
+
+    window.onload = function () {
+        let like = document.getElementById('like')
+        let dislike = document.getElementById('dislike')
+
+        like.onclick = (e) => {
+            addLikeOrDislike('likes')
+                .then(likesCount => {
+                    if (likesCount) {
+                        like.innerHTML = `<span class="post__like icon-like"></span> ${likesCount}`
+                    }
+                })
+        }
+        dislike.onclick = (e) => {
+            addLikeOrDislike('dislikes')
+                .then(dislikesCount => {
+                    if (dislikesCount) {
+                        dislike.innerHTML = `<span class="post__dislike icon-like"></span>${dislikesCount}`
+                    }
+                })
+        }
+    }
+    </script>
 {% endblock %}
