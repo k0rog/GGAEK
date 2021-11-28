@@ -1,3 +1,17 @@
+window.onload = function () {
+    let form
+    if (document.querySelector('.registration__form').querySelector('.errorMarker')) {
+        form = document.querySelector('.modal[data-modal=\"2\"]')
+
+        form.classList.toggle('active')
+    }
+    if (document.querySelector('.signin__form').querySelector('.errorMarker')) {
+        form = document.querySelector('.modal[data-modal=\"1\"]')
+
+        form.classList.toggle('active')
+    }
+}
+
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }

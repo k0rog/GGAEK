@@ -262,17 +262,21 @@ display: block;
     visibility: visible;
 }
 
+.header__signin,
 .header__registration {
     padding: 16px;
 }
 
+.signin__title,
 .registration__title {
     margin-bottom: 10px;
 }
-.registration__text {
+.registration__text,
+.signin__text {
     margin-bottom: 10px;
 }
 /* Full-width input fields */
+.signin__input,
 .registration__input{
     width: 100%;
     padding: 15px;
@@ -286,6 +290,7 @@ display: block;
 /*    background-color: #ddd;*/
 /*    outline: none;*/
 /*}*/
+.signin__button,
 .registration__button {
     width: 300px;
 }
@@ -301,6 +306,7 @@ hr {
 
 
 /* Set a grey background color and center the text of the "sign in" section */
+.signin__register,
 .registration__signing {
     text-align: center;
 }
@@ -329,5 +335,10 @@ hr {
 }
 .footer__contacts-icons li:hover {
     color: black;
+}
+
+.errorlist li {
+    color: red;
+    margin: 5px 0;
 }
 /*footer styles end*/

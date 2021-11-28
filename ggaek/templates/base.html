@@ -104,11 +104,14 @@
 		<!--   Svg иконка для закрытия окна  -->
 		<svg class="modal__cross js-modal-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"></path></svg>
-		<form class="registration__form" action="" method="POST">
+		<form class="signin__form" action="" method="POST">
+            {% if request.auth_form.errors %}
+                <div class="errorMarker" style="display: none"></div>
+            {% endif %}
             {% csrf_token %}
 			<div class="header__registration registration">
-				<h1 class="registration__title">Регистрация</h1>
-				<p class="registration__text" >Заполните поля для того, чтобы создать аккаунт.</p>
+				<h1 class="signin__title">Авторизация</h1>
+				<p class="signin__text" >Заполните поля для того, чтобы войти</p>
 				<hr>
 
                 <label for="email"><b>Электронная почта</b></label>
@@ -118,10 +121,10 @@
                 {{ request.auth_form.password }}
 
                 <hr>
-				<button type="submit" class="registration__button button">Создать аккаунт</button>
+				<button type="submit" class="signin__button button">Войти</button>
 			</div>
 
-			<div class="registration__signing">
+			<div class="signin__register">
 				<p>Нет аккаунта?<a href="#" class="js-modal-close js-open-modal" data-modal="2"> Создать.</a></p>
 			</div>
 		</form>
@@ -132,6 +135,9 @@
 		<svg class="modal__cross js-modal-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"></path></svg>
 		<form class="registration__form" action="" method="POST">
+            {% if request.register_form.errors %}
+                <div class="errorMarker" style="display: none"></div>
+            {% endif %}
             {% csrf_token %}
 			<div class="header__registration registration">
 				<h1 class="registration__title">Регистрация</h1>
@@ -157,6 +163,8 @@
 	</div>
 </header>
 <!-- header end -->
+
+
 {% block content %}
 {% endblock %}
 
